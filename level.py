@@ -426,14 +426,13 @@ class Level:
         """
         Main Game Loop Update
         ====================
-        Called every frame to update and render the game world.
+        Called every frame to update the game world state.
 
         EDUCATIONAL CONCEPTS:
-        - Game loops and frame-based updates
-        - Conditional rendering based on game state
+        - Game loops and frame-based state updates
         - Delta time for frame-independent movement
         - System prioritization (UI vs gameplay)
-        - Event handling and input prioritization
+        - Event propagation and input prioritization
 
         Parameters:
         dt (float): Delta time - time since last frame in seconds
@@ -448,14 +447,11 @@ class Level:
                 if event.key == pygame.K_ESCAPE and self.shop_active:
                     self.shop_active = False
 
-        # RENDERING - Draw the world
-        self.display_surface.fill("black")
-        self.all_sprites.custom_draw(self.player)
-
         # GAME LOGIC UPDATES - Priority order is important!
         if self.dialogue_system.active:
             # If dialogue is active, only update dialogue logic and consume events
-            self.dialogue_system.update(events)
+            if events:
+                self.dialogue_system.input(events)
             # Don't process other game logic while dialogue is active
         elif self.shop_active:
             # If shop is open, only update the shop menu
@@ -466,21 +462,47 @@ class Level:
             self.plant_collision()
             self.soil_layer.update_plants(dt)
 
-        # UI AND VISUAL EFFECTS
-        self.overlay.display()
-
-        # Note: Dialogue rendering is handled in dialogue_system.update()
-
         # Weather effects (only during normal gameplay)
         if self.raining and not self.shop_active and not self.dialogue_system.active:
             self.rain.update()
 
         # Sky color transitions (day/night cycle)
-        self.sky.display(dt)
+        self.sky.update(dt)
 
         # TRANSITION EFFECTS
         if self.player.sleep:
-            self.transition.play()
+            self.transition.update()
+
+    def display(self):
+        """
+        Main Game Loop Render Pass
+        ==========================
+        Draws the game world, active overlays, menus, and transition effects onto the screen.
+
+        EDUCATIONAL CONCEPTS:
+        - View rendering/drawing pass
+        - Z-layered drawing
+        - UI and transitions overlay rendering
+        """
+        # RENDERING - Draw the world
+        self.display_surface.fill("black")
+        self.all_sprites.custom_draw(self.player)
+
+        # Draw active interface elements on top of the world
+        if self.dialogue_system.active:
+            self.dialogue_system.draw()
+        elif self.shop_active:
+            self.menu.display()
+
+        # UI AND VISUAL EFFECTS
+        self.overlay.display()
+
+        # Sky color transitions (day/night cycle)
+        self.sky.display()
+
+        # TRANSITION EFFECTS
+        if self.player.sleep:
+            self.transition.display()
 
 
 class CameraGroup(pygame.sprite.Group):
