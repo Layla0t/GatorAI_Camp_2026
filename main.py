@@ -87,7 +87,6 @@ class Game:
         self.show_main_menu = True  # Flag to control which screen to show
         self.show_settings_during_game = False  # Flag for in-game settings menu
         self.settings_menu = None  # Settings menu (created when first needed)
-        self.settings_menu_frame_created = -1  # Track when settings menu was created
 
         # Emotion Detection Setup
         # Defer until actually needed in the game (not at startup to avoid heavy imports)
@@ -215,12 +214,14 @@ class Game:
                     self.character_screen.toggle()  # Show/hide character screen
 
                 # Check if player pressed ESC to toggle settings menu during gameplay
+                # But only if the settings menu isn't already open (let it handle its own ESC)
                 if (
                     event.type == pygame.KEYDOWN
                     and event.key == pygame.K_ESCAPE
                     and not self.show_main_menu
+                    and not self.show_settings_during_game
                 ):
-                    self.show_settings_during_game = not self.show_settings_during_game
+                    self.show_settings_during_game = True
 
             # UPDATE GAME STATE - Decide what to update based on current screen
             if self.show_main_menu:
@@ -233,17 +234,13 @@ class Game:
                     if self.settings_menu is None:
                         from settings_menu import SettingsMenu
                         self.settings_menu = SettingsMenu(self.restart_emotion_detector)
-                        self.settings_menu_frame_created = frame_count
                     
-                    # Only process input after the first frame to avoid capturing the ESC that opened it
-                    if frame_count > self.settings_menu_frame_created:
-                        result = self.settings_menu.update()
-                        if result == "back":
-                            self.show_settings_during_game = False
-                            self.settings_menu = None
-                    else:
-                        # First frame: just display without input
-                        self.settings_menu.display()
+                    # Process input for settings menu
+                    # The input_timer in settings_menu prevents immediate processing of the opening ESC
+                    result = self.settings_menu.update()
+                    if result == "back":
+                        self.show_settings_during_game = False
+                        self.settings_menu = None
                 else:
                     # Normal gameplay - pass events for proper input handling
                     self.level.run(delta_time, events)  # Update game world
@@ -253,6 +250,25 @@ class Game:
                         self.character_screen.update()
 
             # RENDER - Draw everything to the screen
+            if self.show_main_menu:
+                # Draw the main menu (it fills the screen with black and draws menu items)
+                self.main_menu.display()
+            elif self.level is not None:
+                # Draw the game level
+                self.level.display()
+                # If character screen is visible, draw it on top
+                if self.character_screen and self.character_screen.visible:
+                    self.character_screen.display()
+                # If settings menu is open, draw it on top of the game with an overlay
+                if self.show_settings_during_game and self.settings_menu is not None:
+                    # Draw a semi-transparent overlay to dim the game world
+                    overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+                    overlay.set_alpha(128)
+                    overlay.fill((0, 0, 0))
+                    self.screen.blit(overlay, (0, 0))
+                    # Draw the settings menu on top
+                    self.settings_menu.display()
+            
             pygame.display.update()  # Actually display what we've drawn
 
 

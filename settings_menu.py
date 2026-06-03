@@ -29,6 +29,7 @@ class SettingsMenu:
 
         self.selected_index = 0
         self.input_timer = Timer(150)
+        self.input_timer.activate()  # Activate timer immediately to prevent processing the opening ESC
 
         # Camera detection will only run when the player interacts with camera settings
         self.available_cameras = None
@@ -43,7 +44,8 @@ class SettingsMenu:
         ).convert_alpha()
 
     def display(self):
-        self.display_surface.fill("black")
+        # Don't fill with black - let the caller handle the background
+        # This allows the menu to be drawn on top of the game world
 
         # Title
         title_surf = self.title_font.render("Settings", True, "White")
@@ -280,6 +282,7 @@ class SettingsMenu:
         return None
 
     def update(self):
+        # Only handle input, not rendering
+        # Rendering is handled separately by the caller
         result = self.input()
-        self.display()
         return result

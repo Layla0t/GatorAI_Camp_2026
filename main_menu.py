@@ -39,8 +39,9 @@ class MainMenu:
             # Create settings menu lazily if needed
             if self.settings_menu is None:
                 self.settings_menu = SettingsMenu(self.camera_change_callback)
-            # Settings menu handles its own display
+            # Update and display settings menu
             result = self.settings_menu.update()
+            self.settings_menu.display()
             if result == "back":
                 self.state = "main"
                 self.input_timer.activate()
