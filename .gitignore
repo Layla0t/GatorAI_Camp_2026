@@ -2,7 +2,7 @@
 /rars/
 
 #ignore python cache
-__pycache__/
+__pycache__/*
 *.pyc
 *.pyo
 *.pyd
@@ -23,6 +23,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.vscode/
 
 ai_materials/data/
 ai_materials/checkpoints
@@ -34,3 +35,4 @@ ai_materials/navigator_api_key.json
 .claude/settings.local.json
 CLAUDE.local.md
 teaching_guides/DOC_SCRUB_LOG.md
+
