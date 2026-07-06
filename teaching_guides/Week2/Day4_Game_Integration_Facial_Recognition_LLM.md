@@ -179,6 +179,8 @@ Webcam ─▶ EmotionDetector (thread)
 2. **Use more than the latest emotion** — pass the *most common* of the last 5.
 3. **Different NPC personalities** reacting to the same emotion (system-prompt changes).
 4. **Add an on-screen label** of the current emotion next to the bunny icon.
+5. **Write custom fallback responses** — edit the offline / API-down replies
+   (`@STUDENT-EDIT-Week2_Day4-2`).
 
 ## Troubleshooting Tips
 - **NPC always acts "neutral":** the deque is empty (camera off / no face) or labels

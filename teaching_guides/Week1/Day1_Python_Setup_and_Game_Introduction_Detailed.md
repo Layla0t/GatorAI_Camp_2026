@@ -4,24 +4,14 @@
 Set up programming environment and begin coding fundamentals.
 
 ## Setup Tasks
-1. **Install & Run IDE**: Explain what IDEs are and set up development environment
+1. **Install & Run IDE**: Explain what IDEs are and set up development environment. If everything went according to plan, this will already be done!
 2. **Install Python**: Walk through Python installation. **Use Python 3.11 or 3.12** — the
    game's libraries (pygame-ce, torch, opencv) have prebuilt wheels for those versions.
-   Very new versions (3.14) may not, and will try to compile from source and fail.
+   Very new versions (3.14) may not, and will try to compile from source and fail. Similar to Step 1, hopefully this is already done!
 3. **GitHub Setup**: Sign-in or sign-up for GitHub account
-4. **Download Project**: Clone from [Ian's GitHub Repository](https://github.com/UFResearchComputing/GatorAI_Camp_2026)
-5. **Hello World**: Demonstrate running "Hello, World!" in a Python script
+4. **Download Project**: Fork from [The GitHub Repository](https://github.com/PracticumAI/GatorAI_Camp_2026)
 
 ## Core Concepts
-
-> **Ordering note:** Day 1 covers the "Python for AI" notebook's *single-value
-> fundamentals* in the notebook's order: variables → print → f-strings → reading errors
-> → order of execution → calculations → PEMDAS → data types & casting. **Libraries and
-> importing move to Day 2** (to match the notebook, which teaches libraries after lists
-> and naming). On Day 1 we only *notice* the `import` lines at the top of `main.py` and
-> promise a proper explanation tomorrow. Comments (`#`) are *used* today too (students
-> write their first one at `@STUDENT-EDIT-Day1-1`); the notebook formally covers comments
-> on Day 2, so Day 2 revisits the *why* of commenting.
 
 ### Basic Python Syntax
 - Simple print statements and `#` comments
@@ -44,6 +34,9 @@ Set up programming environment and begin coding fundamentals.
 ### Game Environment Overview
 - Introduce existing game framework
 - Show game file locations and how to run the game (`python main.py`)
+
+### A First Look at Classes
+- The `Game` class as a "blueprint"; `def __init__(self)` and `self`
 
 ## Exercise: Customize the Game
 The student-facing steps for today live in
@@ -110,8 +103,126 @@ from collections import deque
    *notice* these lines exist; the three import **styles** (and `help`/`dir`/aliases) are
    the formal **Day 2** libraries lesson.
 
-### Game Class Structure
+### The Settings File (Variables & Data Types)
+**File**: [settings.py](../../settings.py)
+
+This is the best file for today's "variables and data types" lesson. It is full of
+clearly-typed values students can read and change:
+
+```python
+# @STUDENT-EDIT-Day1-3: Change the game window size
+SCREEN_WIDTH = 1280   # integer
+SCREEN_HEIGHT = 720   # integer
+# @STUDENT-EDIT-Day1-2: Customize the game window title (TITLE)
+TITLE = "PyDew Valley: GAIC 26"   # string
+# @STUDENT-EDIT-Day1-4: Experiment with different background colors
+WATER_COLOR = "#71ddee"   # string holding a hex color code
+TILE_SIZE = 64   # integer
+```
+
+**DETAILED WALKTHROUGH:**
+- `SCREEN_WIDTH` / `SCREEN_HEIGHT` / `TILE_SIZE` are **integers**.
+- `TITLE` and `WATER_COLOR` are **strings**.
+- Later in the file, `SALE_PRICES` and `GROW_SPEED` are **dictionaries**, and
+  `APPLE_POS` is a dictionary of **lists of tuples** — good examples to point at when
+  introducing data structures.
+- The `@STUDENT-EDIT-Day1-*` comments mark exactly where students should make their
+  Day 1 edits (window title, window size, background color).
+
+### Comments
+**File**: [settings.py](../../settings.py) — marker `@STUDENT-EDIT-Day1-1`
+
+At the same marker where students read the typed constants, they write their first
+comment (Day 1 tutorial Step 2):
+
+```python
+# The width of the screen is 1280 pixels
+SCREEN_WIDTH = 1280
+```
+
+**DETAILED WALKTHROUGH:**
+- Anything after a `#` on a line is a **comment** — Python ignores it entirely. Comments
+  are notes for humans (and your future self), not instructions for the computer.
+- Teach the habit early: "comment the *why*, not the obvious." This is the concept's
+  home; Day 2 only briefly revisits good commenting alongside the other style topics.
+
+### Printing and f-strings
+**File**: [main.py](../../main.py) — `Game.__init__`
+
+Two adjacent markers introduce output. `@STUDENT-EDIT-Day1-5` adds a plain print;
+`@STUDENT-EDIT-Day1-6` introduces the f-string:
+
+```python
+        # @STUDENT-EDIT-Day1-5: ... print("Game starting!")
+        # @STUDENT-EDIT-Day1-6: ... print(f"Welcome to {TITLE}!")
+```
+
+**DETAILED WALKTHROUGH:**
+- `print("Game starting!")` displays literal text — the first thing to add so students
+  see the console react to their code.
+- `print(f"Welcome to {TITLE}!")` is a **formatted string literal (f-string)**: the `f`
+  before the quote lets you drop a variable inside `{ }`. `TITLE` comes from
+  `settings.py`, so the printed line changes when they change the title. This is the
+  cleanest way to combine text and variables and is used all over the codebase.
+
+### Reading Error Messages (on purpose)
+**File**: run from `main.py`
+
+The notebook meets errors early, so Day 1 does too (the *deep* debugging day is Day 4).
+Have students temporarily add a line that uses an undefined name (`@STUDENT-EDIT-Day1-7`
+in the Day 1 tutorial is a do-then-undo step, not a permanent code marker):
+
+```python
+print(favorite_game)   # add this, run, read the error, then delete it
+```
+
+**DETAILED WALKTHROUGH:**
+- The console shows `NameError: name 'favorite_game' is not defined`.
+- Teach the habit: **read the last line first** — it names the error type and the
+  problem. Reassure students that errors are normal and are the fastest way to learn.
+
+### Variables in Calculations and PEMDAS
+**Files**: [settings.py](../../settings.py) and [scratch.py](../../scratch.py)
+
+`@STUDENT-EDIT-Day1-8` adds two computed constants — variables used in math:
+
+```python
+SCREEN_CENTER_X = SCREEN_WIDTH / 2   # float: horizontal middle of the screen
+SCREEN_CENTER_Y = SCREEN_HEIGHT / 2  # float: vertical middle of the screen
+```
+
+**DETAILED WALKTHROUGH:**
+- These show that variables can be **used in expressions**, and that division (`/`)
+  always yields a `float`. The game centers UI with this same math, so it isn't busywork.
+- For pure arithmetic practice (which has no game surface), `scratch.py`'s
+  `@STUDENT-EDIT-Day1-9` holds two notebook exercises: `(100 - 5**3)/5 = -5.0` and
+  `15/4 + 6 = 9.75`. **Key gotcha:** `**` is "to the power of"; `^` is *not* — it's a
+  bitwise XOR. Python follows PEMDAS.
+
+### Data Types and Type Casting
+**Files**: [scratch.py](../../scratch.py) and [settings.py](../../settings.py)
+
+`@STUDENT-EDIT-Day1-10` (a note in `settings.py`, with practice in `scratch.py`):
+
+```python
+print(type(SCREEN_WIDTH))     # <class 'int'>
+print(type(SCREEN_CENTER_X))  # <class 'float'>  (division makes a float)
+y = int(3.99)                 # 3  -> truncates toward zero, does NOT round!
+z = float(3)                  # 3.0
+```
+
+**DETAILED WALKTHROUGH:**
+- `type()` reveals a value's type; `int()`/`float()` **cast** between types.
+- The most important insight (straight from the notebook): `int()` **truncates**, it
+  does not round — `int(3.99)` is `3`. This surprises students and is worth demoing live.
+- Tie-in: ML libraries are picky about types (e.g. models want floats/tensors), so
+  casting is a constant chore in real AI work — previews Week 2.
+
+### A First Look at Classes: the `Game` Class
 **File**: [main.py](../../main.py) — `class Game`
+
+A **class** is a *blueprint* that bundles data and behavior together; the entire game lives inside the
+`Game` class. Students don't edit this today — they just meet the idea.
 
 ```python
 class Game:
@@ -161,104 +272,6 @@ class Game:
 6. **`self.clock = pygame.time.Clock()`** — a clock used to cap the frame rate so the
    game runs at a steady speed on any computer.
 
-### The Settings File (Variables & Data Types)
-**File**: [settings.py](../../settings.py)
-
-This is the best file for today's "variables and data types" lesson. It is full of
-clearly-typed values students can read and change:
-
-```python
-# @STUDENT-EDIT-Day1-3: Change the game window size
-SCREEN_WIDTH = 1280   # integer
-SCREEN_HEIGHT = 720   # integer
-# @STUDENT-EDIT-Day1-2: Customize the game window title (TITLE)
-TITLE = "PyDew Valley: GAIC 26"   # string
-# @STUDENT-EDIT-Day1-4: Experiment with different background colors
-WATER_COLOR = "#71ddee"   # string holding a hex color code
-TILE_SIZE = 64   # integer
-```
-
-**DETAILED WALKTHROUGH:**
-- `SCREEN_WIDTH` / `SCREEN_HEIGHT` / `TILE_SIZE` are **integers**.
-- `TITLE` and `WATER_COLOR` are **strings**.
-- Later in the file, `SALE_PRICES` and `GROW_SPEED` are **dictionaries**, and
-  `APPLE_POS` is a dictionary of **lists of tuples** — good examples to point at when
-  introducing data structures.
-- The `@STUDENT-EDIT-Day1-*` comments mark exactly where students should make their
-  Day 1 edits (window title, window size, background color).
-
-### Printing and f-strings
-**File**: [main.py](../../main.py) — `Game.__init__`
-
-Two adjacent markers introduce output. `@STUDENT-EDIT-Day1-5` adds a plain print;
-`@STUDENT-EDIT-Day1-6` introduces the f-string:
-
-```python
-        # @STUDENT-EDIT-Day1-5: ... print("Game starting!")
-        # @STUDENT-EDIT-Day1-6: ... print(f"Welcome to {TITLE}!")
-```
-
-**DETAILED WALKTHROUGH:**
-- `print("Game starting!")` displays literal text — the first thing to add so students
-  see the console react to their code.
-- `print(f"Welcome to {TITLE}!")` is a **formatted string literal (f-string)**: the `f`
-  before the quote lets you drop a variable inside `{ }`. `TITLE` comes from
-  `settings.py`, so the printed line changes when they change the title. This is the
-  cleanest way to combine text and variables and is used all over the codebase.
-
-### Reading Error Messages (on purpose)
-**File**: run from `main.py`
-
-The notebook meets errors early, so Day 1 does too (the *deep* debugging day is Day 4).
-Have students temporarily add a line that uses an undefined name (`@STUDENT-EDIT-Day1-7`
-in the Day 1 tutorial is a do-then-undo step, not a permanent code marker):
-
-```python
-print(last_name)   # add this, run, read the error, then delete it
-```
-
-**DETAILED WALKTHROUGH:**
-- The console shows `NameError: name 'last_name' is not defined`.
-- Teach the habit: **read the last line first** — it names the error type and the
-  problem. Reassure students that errors are normal and are the fastest way to learn.
-
-### Variables in Calculations and PEMDAS
-**Files**: [settings.py](../../settings.py) and [scratch.py](../../scratch.py)
-
-`@STUDENT-EDIT-Day1-8` adds two computed constants — variables used in math:
-
-```python
-SCREEN_CENTER_X = SCREEN_WIDTH / 2   # float: horizontal middle of the screen
-SCREEN_CENTER_Y = SCREEN_HEIGHT / 2  # float: vertical middle of the screen
-```
-
-**DETAILED WALKTHROUGH:**
-- These show that variables can be **used in expressions**, and that division (`/`)
-  always yields a `float`. The game centers UI with this same math, so it isn't busywork.
-- For pure arithmetic practice (which has no game surface), `scratch.py`'s
-  `@STUDENT-EDIT-Day1-9` holds two notebook exercises: `(100 - 5**3)/5 = -5.0` and
-  `15/4 + 6 = 9.75`. **Key gotcha:** `**` is "to the power of"; `^` is *not* — it's a
-  bitwise XOR. Python follows PEMDAS.
-
-### Data Types and Type Casting
-**Files**: [scratch.py](../../scratch.py) and [settings.py](../../settings.py)
-
-`@STUDENT-EDIT-Day1-10` (a note in `settings.py`, with practice in `scratch.py`):
-
-```python
-print(type(SCREEN_WIDTH))     # <class 'int'>
-print(type(SCREEN_CENTER_X))  # <class 'float'>  (division makes a float)
-y = int(3.99)                 # 3  -> truncates toward zero, does NOT round!
-z = float(3)                  # 3.0
-```
-
-**DETAILED WALKTHROUGH:**
-- `type()` reveals a value's type; `int()`/`float()` **cast** between types.
-- The most important insight (straight from the notebook): `int()` **truncates**, it
-  does not round — `int(3.99)` is `3`. This surprises students and is worth demoing live.
-- Tie-in: ML libraries are picky about types (e.g. models want floats/tensors), so
-  casting is a constant chore in real AI work — previews Week 2.
-
 ### The Program Entry Point
 **File**: [main.py](../../main.py) (bottom of file)
 
@@ -278,33 +291,36 @@ if __name__ == "__main__":
 ## Key Learning Points
 1. **How a Python program starts** — the `if __name__ == "__main__":` pattern and
    top-to-bottom execution (the notebook's "order of execution").
-2. **Variables and data types** — reading/editing typed constants in `settings.py`;
-   `type()` and casting, where `int()` truncates rather than rounds.
+2. **Variables, comments, and data types** — reading/editing typed constants in
+   `settings.py`; writing `#` comments; `type()` and casting, where `int()` truncates
+   rather than rounds.
 3. **Printing and f-strings** — `print()` and `f"...{var}..."` to combine text + values.
 4. **Reading errors** — `NameError` and reading the last line of a traceback.
 5. **Arithmetic** — variables in calculations, PEMDAS, and `**` vs the `^`-is-XOR gotcha.
-6. **Basic class structure** — `class`, `def __init__(self)`, and `self`.
-7. **Initializing pygame** — `pygame.init()`, `set_mode`, `set_caption`, the `Clock`.
-8. **Imports are previewed, not taught yet** — students *notice* the `import` lines at
+6. **Imports are previewed, not taught yet** — students *notice* the `import` lines at
    the top of `main.py`; the formal libraries lesson is Day 2.
+7. **A first look at classes (end of day)** — `class`, `def __init__(self)`, and `self`;
+   the one bigger idea, introduced after the simpler fundamentals.
+8. **Initializing pygame** — `pygame.init()`, `set_mode`, `set_caption`, the `Clock`
+   (all inside the `Game` class's `__init__`).
 
 ## Extension Activities
-1. **Personalize the title** — change `TITLE` in [settings.py](../../settings.py)
-   (marker `@STUDENT-EDIT-Day1-2`).
-2. **Resize the window** — change `SCREEN_WIDTH` / `SCREEN_HEIGHT`
-   (marker `@STUDENT-EDIT-Day1-3`). Note how larger sizes affect what you can see.
-3. **Print when the game starts** — add `print("Game starting!")` at the
-   `@STUDENT-EDIT-Day1-5` marker in `Game.__init__` and watch the console.
-4. **Change the water color** — try `WATER_COLOR = "#FF0000"` (red)
-   (marker `@STUDENT-EDIT-Day1-4`).
-5. **Print with an f-string** — add `print(f"Welcome to {TITLE}!")` at
-   `@STUDENT-EDIT-Day1-6` and watch the console.
-6. **Trigger and read an error** — temporarily `print(last_name)`, read the `NameError`'s
-   last line, then delete it.
-7. **Compute a value** — inspect/print `SCREEN_CENTER_X`/`SCREEN_CENTER_Y`
+1. **Add a comment** — write a `#` comment above a variable (`@STUDENT-EDIT-Day1-1`).
+2. **Personalize the title** — change `TITLE` in [settings.py](../../settings.py)
+   (`@STUDENT-EDIT-Day1-2`).
+3. **Resize the window** — change `SCREEN_WIDTH` / `SCREEN_HEIGHT` (`@STUDENT-EDIT-Day1-3`).
+4. **Change the water color** — try `WATER_COLOR = "#FF0000"` (`@STUDENT-EDIT-Day1-4`).
+5. **Print when the game starts** — add `print("Game starting!")` at
+   `@STUDENT-EDIT-Day1-5`.
+6. **Print with an f-string** — add `print(f"Welcome to {TITLE}!")` at
+   `@STUDENT-EDIT-Day1-6`.
+7. **Trigger and read an error** — temporarily `print(favorite_game)`, read the
+   `NameError`'s last line, then delete it.
+8. **Fix the error** — create a `favorite_game` string variable and print its value.
+9. **Compute a value** — inspect/print `SCREEN_CENTER_X`/`SCREEN_CENTER_Y`
    (`@STUDENT-EDIT-Day1-8`); resize the window and see them change.
-8. **Run the playground** — `python scratch.py` and work the PEMDAS
-   (`@STUDENT-EDIT-Day1-9`) and `type()`/casting (`@STUDENT-EDIT-Day1-10`) exercises.
+10. **Run the playground** — `python scratch.py` and work the PEMDAS
+    (`@STUDENT-EDIT-Day1-9`) and `type()`/casting (`@STUDENT-EDIT-Day1-10`) exercises.
 
 ## Troubleshooting Tips
 - **pygame won't install / tries to "build a wheel":** you are probably on a too-new
@@ -313,8 +329,5 @@ if __name__ == "__main__":
 - **`ModuleNotFoundError`:** make sure you ran `python main.py` from inside the
   `GatorAI_Camp_2026` folder. If a library really is missing, uncomment its
   `install(...)` line at the top of `main.py` (they're commented out by default).
-- **GitHub clone issues:** re-clone with
-  `git clone https://github.com/UFResearchComputing/GatorAI_Camp_2026` and confirm you
-  can see the `.py` files plus the `graphics/`, `audio/`, `font/`, and `data/` folders.
 - **Window opens then closes instantly:** check the console for a Python error — a typo
   in `settings.py` (e.g. a missing quote) is the usual cause.

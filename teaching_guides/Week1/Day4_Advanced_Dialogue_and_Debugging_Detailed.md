@@ -211,6 +211,8 @@ animation plays. This is worth showing as "string manipulation driving behavior"
    branches and confirm each path with your debug print.
 4. **Deliberately break it, then fix it** — remove a colon or mis-indent a line, read
    the error message, and repair it. (Builds error-reading confidence.)
+5. **Trigger a scope error** — print a variable that was set only inside a function and
+   read the `NameError`.
 
 ## Troubleshooting Tips
 - **`IndexError: list index out of range` in `draw`:** you advanced past the last page;
