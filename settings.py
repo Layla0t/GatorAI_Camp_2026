@@ -25,7 +25,7 @@ SCREEN_HEIGHT = 720  # Height of game window in pixels (Default: 720)
 # @STUDENT-EDIT-Day1-2: Customize the game window title (TITLE)
 TITLE = "The Very Berry Valley"  # Game window title text (Default: "PyDew Valley: GAIC 26")
 # @STUDENT-EDIT-Day1-4: Experiment with different background colors
-WATER_COLOR = "#71ddee"  # Hex color code for the water background (Default: "#71ddee")
+WATER_COLOR = "#2287b5"  # Hex color code for the water background (Default: "#71ddee")
 TILE_SIZE = 64  # Size of each tile in our game world (pixels) (Default: 64)
 
 # @STUDENT-EDIT-Day1-8: Variables can be used in CALCULATIONS! The two values below are
