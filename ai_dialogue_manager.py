@@ -166,8 +166,8 @@ class AIDialogueManager:
 
         # Generic fallback for any other NPC with basic emotion awareness
         if emotion == "happy":
-            return "I can see you're having a great day! How wonderful!"
+            return "Isn't today amazing? Let's enjoy evey moment of it!"
         elif emotion == "sad":
-            return "You seem a bit down, friend. I hope things look up soon!"
+            return "I hope everything is all right, hopefully you cheer up!"
         else:
-            return "Hello there! Nice to see you around the farm today."
+            return "Hello! Nice to see you around!"
