@@ -176,7 +176,7 @@ NPC_DATA = {
     },
     "Jamie": {
         "pos": (700, 500),  # Default spawn position
-        "graphic": "graphics/objects/piskelfox.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "graphic": "graphics/objects/fox.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hey! Welcome to The Very Berry Valley!",
             "I'm Jamie, I love helping players learn Python programming.",
