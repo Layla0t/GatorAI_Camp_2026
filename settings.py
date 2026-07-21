@@ -173,5 +173,14 @@ NPC_DATA = {
             "I'm Robin, a helper NPC created using Python classes.",
             "Try editing settings.py to change what I say, or create your own custom NPC!"
         ]  # Default starter dialogue lines
+    },
+    "Jamie": {
+        "pos": (800, 400),  # Default spawn position
+        "graphic": "graphics/objects/merchant.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "dialogue": [
+            "Hi there! Welcome to PyDew Valley!",
+            "I'm Jamie, a helper NPC created using Python classes.",
+            "Try editing settings.py to change what I say, or create your own custom NPC!"
+        ]  # Default starter dialogue lines
     }
 }
