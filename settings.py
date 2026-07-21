@@ -20,8 +20,8 @@ from pygame.math import Vector2
 # These control how big our game window is and how detailed the graphics are
 
 # @STUDENT-EDIT-Day1-3: Change the game window size
-SCREEN_WIDTH = 1400  # Width of game window in pixels (Default: 1280)
-SCREEN_HEIGHT = 750  # Height of game window in pixels (Default: 720)
+SCREEN_WIDTH = 1500  # Width of game window in pixels (Default: 1280)
+SCREEN_HEIGHT = 800  # Height of game window in pixels (Default: 720)
 # @STUDENT-EDIT-Day1-2: Customize the game window title (TITLE)
 TITLE = "The Very Berry Valley"  # Game window title text (Default: "PyDew Valley: GAIC 26")
 # @STUDENT-EDIT-Day1-4: Experiment with different background colors
@@ -176,7 +176,7 @@ NPC_DATA = {
     },
     "Jamie": {
         "pos": (700, 500),  # Default spawn position
-        "graphic": "graphics/objects/merchant.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "graphic": "graphics/objects/piskelfox.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hey! Welcome to The Very Berry Valley!",
             "I'm Jamie, I love helping players learn Python programming.",
