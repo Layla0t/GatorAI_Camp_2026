@@ -180,7 +180,7 @@ NPC_DATA = {
         "dialogue": [
             "Hey! Welcome to The Very Berry Valley!",
             "I'm Jamie, I love helping players learn Python programming.",
-            "Try editing settings.py to change what I say, or create your own custom NPC!"
+            "I can grow crops, sell items, and even give you advice on coding!"
         ]  # Default starter dialogue lines
     }
 }
