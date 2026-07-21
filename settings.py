@@ -176,10 +176,19 @@ NPC_DATA = {
     },
     "Jamie": {
         "pos": (700, 500),  # Default spawn position
-        "graphic": "graphics/objects/fox.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "graphic": "graphics/objects/merchant.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hey! Welcome to The Very Berry Valley!",
             "I'm Jamie, I love helping players learn Python programming.",
+            "I can grow crops, sell items, and even give you advice on coding!"
+        ]  # Default starter dialogue lines
+    },
+     "Harry": {
+        "pos": (750, 550),  # Default spawn position
+        "graphic": "graphics/objects/fox.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "dialogue": [
+            "Hey! Welcome to The Very Berry Valley!",
+            "I'm Harry, I love helping players learn different codes.",
             "I can grow crops, sell items, and even give you advice on coding!"
         ]  # Default starter dialogue lines
     }
