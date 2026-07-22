@@ -129,7 +129,7 @@ GROW_SPEED = {
 DAY_GROWTH = 10  # Growth added after sleeping one day (Default: 10)
 
 # @STUDENT-EDIT-Day2-2: Change the player's movement speed (PLAYER_SPEED)
-PLAYER_SPEED = 500  # Player movement speed (Default: 200)
+PLAYER_SPEED = 600  # Player movement speed (Default: 200)
 
 # =============================================================================
 # ECONOMIC SYSTEM - PRICES AND VALUES
@@ -185,7 +185,7 @@ NPC_DATA = {
     },
      "Harry": {
         "pos": (750, 550),  # Default spawn position
-        "graphic": "graphics/objects/fox (1).png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "graphic": "graphics/objects/fox(1).png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hey! Welcome to The Very Berry Valley!",
             "I'm Harry, I love helping players learn different codes.",
