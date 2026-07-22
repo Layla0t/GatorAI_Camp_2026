@@ -58,7 +58,7 @@ class Player(pygame.sprite.Sprite):
         # GRAPHICS AND ANIMATION SETUP
         self.import_assets()  # Load all animation frames
         # @STUDENT-EDIT-Day2-3: Modify the player's starting direction ('down' -> 'left', etc.)
-        self.status = "down_idle"  # Start facing down and not moving
+        self.status = "up_idle"  # Start facing up and not moving
         self.frame_index = 0  # Which animation frame to show
 
         # Set up the visual representation
@@ -336,6 +336,9 @@ class Player(pygame.sprite.Sprite):
         self.collision("vertical")
 
         # @STUDENT-EDIT-Day2-4: Add a simple boundary check 'if' statement to prevent the player from leaving the screen.
+        if self.pos.y < 0:
+            self.pos.y = 0
+        if self.pos.y > SCREEN_HEIGHT:
 
     def update(self, dt):
         """Run one frame of the player: input -> status -> timers -> aim -> move -> animate."""
