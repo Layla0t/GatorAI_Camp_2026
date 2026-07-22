@@ -185,7 +185,7 @@ NPC_DATA = {
     },
      "Harry": {
         "pos": (750, 550),  # Default spawn position
-        "graphic": "graphics/objects/pixel_fox (1).png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "graphic": "graphics/objects/fox (1).png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hey! Welcome to The Very Berry Valley!",
             "I'm Harry, I love helping players learn different codes.",
