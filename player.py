@@ -284,19 +284,20 @@ class Player(pygame.sprite.Sprite):
                 self.timers["action"].activate()
                 self.direction = pygame.math.Vector2()
                 self.frame_index = 0
-        def get_status(self):
-            """Pick the animation state from movement/tool use (e.g. "right" -> "right_idle")."""
-            # Not moving -> idle version of the current facing direction
-            if self.timers["action"].active:
-                self.status = self.status.split("_")[0] + "_celebrate"
-                return
 
-            if self.direction.magnitude() == 0:
-                self.status = self.status.split("_")[0] + "_idle"
+    def get_status(self):
+        """Pick the animation state from movement/tool use (e.g. "right" -> "right_idle")."""
+        # Not moving -> idle version of the current facing direction
+        if self.timers["action"].active:
+            self.status = self.status.split("_")[0] + "_celebrate"
+            return
 
-        # Using a tool -> tool version (e.g. "right" + "hoe" -> "right_hoe")
-            if self.timers["tool use"].active:
-                self.status = self.status.split("_")[0] + "_" + self.selected_tool
+        if self.direction.magnitude() == 0:
+            self.status = self.status.split("_")[0] + "_idle"
+
+    # Using a tool -> tool version (e.g. "right" + "hoe" -> "right_hoe")
+        if self.timers["tool use"].active:
+            self.status = self.status.split("_")[0] + "_" + self.selected_tool
 
     def update_timers(self):
         """Tick every timer so its cooldown counts down."""
